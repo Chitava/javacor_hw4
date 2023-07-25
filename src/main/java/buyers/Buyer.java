@@ -1,42 +1,22 @@
 package buyers;
 
 public class Buyer {
-    private String firstname;
-    private String secondname;
-    private String patronymic;
+    private String name;
     private int age;
     private int phone;
 
-    public Buyer(String firstname, String secondname, String patronymic, int age, int phone) {
-        this.firstname = firstname;
-        this.secondname = secondname;
-        this.patronymic = patronymic;
+    public Buyer(String name, int age, int phone) {
+        this.name = name;
         this.age = age;
         this.phone = phone;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getSecondname() {
-        return secondname;
-    }
-
-    public void setSecondname(String secondname) {
-        this.secondname = secondname;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setName(String firstname) {
+        this.name = firstname;
     }
 
     public int getAge() {
@@ -59,7 +39,7 @@ public class Buyer {
     public String toString() {
         StringBuilder info = new StringBuilder();
         info.append("Покупатель ");
-        info.append(getFirstname() + " " + getSecondname() + " " + getPatronymic() + "\n");
+        info.append(getName() +  "\n");
         info.append("Возраст ");
         info.append(getAge() + "\n");
         info.append("Номер телефона - ");

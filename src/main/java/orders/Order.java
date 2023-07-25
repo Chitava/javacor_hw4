@@ -2,6 +2,8 @@ package orders;
 
 import buyers.Buyer;
 import exceptions.AmountExeption;
+import exceptions.CustomerException;
+import exceptions.ProductException;
 import products.Product;
 
 import java.util.ArrayList;
@@ -23,43 +25,30 @@ public class Order {
         countpurchase++;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
 
-    public ArrayList<Product> getProducts() {
-        return products;
-    }
-
-    public int getCountproduct() {
-        return countProduct;
-    }
-
-    public void makeOrder(Product product, int numb) {
+    public void makeOrder(String nameBauyer, String product, int numb, ArrayList<Product> products,
+                          ArrayList<Buyer> buyers) {
         try {
             if (numb > 100) {
-                throw new AmountExeption("Слишком большое значение ля позиции " + product.getName() + " " + numb);
-
-            } else {
-                for (int i = 0; i < numb; i++) {
-                    if (this.products.contains(product)) {
-                        product.quantityProduct++;
-                        this.price = this.price + product.getPrice();
-                        product.summCoast = product.summCoast + product.getPrice();
-
-                    } else {
-                        this.products.add(product);
-                        this.price = this.price + product.getPrice();
-                        product.quantityProduct++;
-                        this.countProduct++;
-                        product.summCoast = product.summCoast + product.getPrice();
-                    }
-                }
+                throw new AmountExeption("Слишком большое значение для позиции " + product + " " + numb);
             }
-
-        } catch (AmountExeption e) {
+        }catch (AmountExeption e) {
             e.printStackTrace();
         }
+        try {
+            if (!products.contains(product))
+                throw new ProductException("Товара" + product +  "нет в нашем магазине");
+        }catch (ProductException e){
+            e.printStackTrace();
+        }
+        try {
+            if (! buyers.contains(nameBauyer)){
+                throw new CustomerException("Такого покупателя нет в нашей базе");
+            }
+        }catch (CustomerException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override
