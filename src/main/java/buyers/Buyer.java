@@ -54,4 +54,16 @@ public class Buyer {
     public void setPhone(int phone) {
         this.phone = phone;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        info.append("Покупатель ");
+        info.append(getFirstname() + " " + getSecondname() + " " + getPatronymic() + "\n");
+        info.append("Возраст ");
+        info.append(getAge() + "\n");
+        info.append("Номер телефона - ");
+        info.append(getPhone() + "\n");
+        return info.toString();
+    }
 }

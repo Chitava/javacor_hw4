@@ -1,46 +1,86 @@
 package orders;
 
-public class Order {
-    private Object buyer;
-    private Object product;
-    private Object countproduct;
-    public static int countpurchase;
+import buyers.Buyer;
+import exceptions.AmountExeption;
+import products.Product;
 
-    public Order(Object buyer, Object product, Object countproduct) {
+import java.util.ArrayList;
+import java.util.Stack;
+
+public class Order {
+    private final String number;
+    private Buyer buyer;
+    private ArrayList<Product> products = new ArrayList<>();
+
+    private int countProduct = 0;
+    private double price = 0;
+    public static int countpurchase = 0;
+
+
+    public Order(Buyer buyer, String number) {
+        this.number = number;
         this.buyer = buyer;
-        this.product = product;
-        this.countproduct = countproduct;
+        countpurchase++;
     }
 
-    public Object getBuyer() {
+    public Buyer getBuyer() {
         return buyer;
     }
 
-    public void setBuyer(Object buyer) {
-        this.buyer = buyer;
+    public ArrayList<Product> getProducts() {
+        return products;
     }
 
-    public Object getProduct() {
-        return product;
+    public int getCountproduct() {
+        return countProduct;
     }
 
-    public void setProduct(Object product) {
-        this.product = product;
+    public void makeOrder(Product product, int numb) {
+        try {
+            if (numb > 100) {
+                throw new AmountExeption("Слишком большое значение ля позиции " + product.getName() + " " + numb);
+
+            } else {
+                for (int i = 0; i < numb; i++) {
+                    if (this.products.contains(product)) {
+                        product.quantityProduct++;
+                        this.price = this.price + product.getPrice();
+                        product.summCoast = product.summCoast + product.getPrice();
+
+                    } else {
+                        this.products.add(product);
+                        this.price = this.price + product.getPrice();
+                        product.quantityProduct++;
+                        this.countProduct++;
+                        product.summCoast = product.summCoast + product.getPrice();
+                    }
+                }
+            }
+
+        } catch (AmountExeption e) {
+            e.printStackTrace();
+        }
     }
 
-    public Object getCountproduct() {
-        return countproduct;
-    }
+    @Override
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        info.append("Заказ № ");
+        info.append(this.number + "\n");
+        info.append(this.buyer + "\n");
+        info.append("Список покупок: \n");
+        for (Product product : this.products) {
+            info.append(product);
+            info.append("Количество - ");
+            info.append(product.quantityProduct + "\n");
+            info.append("На сумму - ");
+            info.append(String.format("%.2f", product.summCoast) + "\n");
+        }
 
-    public void setCountproduct(Object countproduct) {
-        this.countproduct = countproduct;
-    }
-
-    public static int getCountpurchase() {
-        return countpurchase;
-    }
-
-    public static void setCountpurchase(int countpurchase) {
-        Order.countpurchase = countpurchase;
+        info.append("Всего позиций в заказе - ");
+        info.append(this.countProduct + "\n");
+        info.append("На сумму - ");
+        info.append(String.format("%.2f", this.price) + "\n");
+        return info.toString();
     }
 }
