@@ -1,3 +1,5 @@
+package products;
+
 public class Product {
     private String name;
     private float price;

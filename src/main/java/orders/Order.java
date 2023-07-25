@@ -1,3 +1,5 @@
+package orders;
+
 public class Order {
     private Object buyer;
     private Object product;

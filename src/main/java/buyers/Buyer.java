@@ -1,3 +1,5 @@
+package buyers;
+
 public class Buyer {
     private String firstname;
     private String secondname;
