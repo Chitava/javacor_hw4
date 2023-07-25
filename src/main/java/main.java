@@ -18,8 +18,16 @@ public class main {
         buyers.add(buyer2);
         products.add(product1);
         products.add(product2);
-        Order order1 = new Order(buyer1, "1");
-        Order order2 = new Order(buyer2, "2");
+        Order order96 = Order.makeOrder("Сидоров", "98", "Вода", 120, products,
+                buyers);
+        Order order1596 = Order.makeOrder("Иванов", "1596", "Молоко", 5, products,
+                buyers);
+        Order order596 = Order.makeOrder("Петров", "596", "Хлеб", 3, products,
+                buyers);
+        Order.addOrders(order96, orders);
+        Order.addOrders(order596, orders);
+        Order.addOrders(order596, orders);
+        System.out.println(orders);
 
 
     }
